@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Setting Up OTA"
+tags: "esp general"
 ---
 
 # Setting Up OTA
