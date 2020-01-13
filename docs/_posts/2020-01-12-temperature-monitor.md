@@ -109,3 +109,4 @@ So. GPIO05 and GPIO04 are the pins I'm looking for. I could have achieved that b
 
 The next steps are more mechanical in nature. My previous temperature monitoring project was fairly unsuccessful because, I think, the LM75s were not thermally isolated from the wood they are sitting in. Additionally, with this project, they need to be protected from water. I also want them to be measuring the air temperature, rather than the sun's radiance so some shading will be important.
 
+...end...
