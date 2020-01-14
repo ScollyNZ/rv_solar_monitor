@@ -24,7 +24,7 @@ void loop(){
   error = Wire.endTransmission();
 
   if (error != 0){
-    Serial.println("Tranmission error, not response");
+    Serial.println("Tranmission error, no response");
   }
   
  
@@ -38,21 +38,17 @@ void loop(){
     y = Wire.read()<<8; //Y msb
     y |= Wire.read(); //Y lsb
 
-    //Print out values of each axis
-  Serial.print("x: ");
-  Serial.print(x);
-  Serial.print("  y: ");
-  Serial.print(y);
-  Serial.print("  z: ");
-  Serial.println(z);
+    Serial.print("x: ");
+    Serial.print(x);
+    Serial.print("  y: ");
+    Serial.print(y);
+    Serial.print("  z: ");
+    Serial.println(z);
   }
   else
   {
     Serial.println("data not ready");
   }
-  
-  
-  
   
   delay(250);
 }
