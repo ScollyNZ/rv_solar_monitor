@@ -2,7 +2,6 @@
 layout: post
 title:  "IOT Cloche - Project Brief"
 tags: "esp general" "IOT" "IOT cloche"
-categories: "IOT Cloche"
 ---
 
 # IOT Cloche
