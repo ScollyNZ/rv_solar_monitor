@@ -38,6 +38,8 @@ void loop(){
     y = Wire.read()<<8; //Y msb
     y |= Wire.read(); //Y lsb
 
+    y = y - 65105;
+
     Serial.print("x: ");
     Serial.print(x);
     Serial.print("  y: ");
