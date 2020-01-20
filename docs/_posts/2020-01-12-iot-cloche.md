@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "IOT Cloche - Project Brief"
-tags: "esp general" "IOT" "IOT cloche"
+tags: "esp general"
 ---
 
 # IOT Cloche
