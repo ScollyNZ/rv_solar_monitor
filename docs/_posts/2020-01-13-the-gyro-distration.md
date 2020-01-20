@@ -34,6 +34,6 @@ Lesson 2: If the response to the get request is '0' your exceeding the message r
 
 ![Thingspeak Dashboard](images/thingspeak_dashboard.jpg)
 
-Very easy, the code is a very simple extension to the hmc5883l.cpp in the utilities folder and can be viewed [here](xxxx)
+Very easy, the code is a very simple extension to the hmc5883l.cpp in the utilities folder and can be viewed [here](../../src/utilities/hmc5883l.cpp)
 
 ...end...
