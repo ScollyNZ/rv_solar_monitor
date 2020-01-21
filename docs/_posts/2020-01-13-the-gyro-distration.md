@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "IOT Cloche - First Dashboard"
-tags: "esp general" "IOT" "IOT cloche"
 categories: "IOT Cloche"
 ---
 
