@@ -93,7 +93,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=40100",
+                "PLATFORMIO=40301",
                 "ESP8266",
                 "ARDUINO_ARCH_ESP8266",
                 "ARDUINO_ESP8266_WEMOS_D1MINILITE",
@@ -114,7 +114,12 @@
             "intelliSenseMode": "clang-x64",
             "cStandard": "c99",
             "cppStandard": "c++11",
-            "compilerPath": "\"/home/simon/.platformio/packages/toolchain-xtensa/bin/xtensa-lx106-elf-gcc\" -mlongcalls -mtext-section-literals"
+            "compilerPath": "/home/simon/.platformio/packages/toolchain-xtensa/bin/xtensa-lx106-elf-gcc",
+            "compilerArgs": [
+                "-mlongcalls",
+                "-mtext-section-literals",
+                ""
+            ]
         }
     ],
     "version": 4

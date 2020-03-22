@@ -51,27 +51,20 @@ void setup() {
 }
 
 void loop() {
+    // Set the gain (PGA) +/- 256mv
+    adc0.setGain(ADS1115_PGA_0P256);
 
-    // Sensor is on P0/N1 (pins 4/5)
-    Serial.println("Sensor 1 ************************");
-    // Set the gain (PGA) +/- 1.024v
-    adc0.setGain(ADS1115_PGA_6P144);
-
-    // Set polarity to high input == high output
-    adc0.setComparatorPolarity(ADS1115_COMP_POL_ACTIVE_LOW);
-
-    // Get the number of counts of the accumulator
-    Serial.print("Counts for sensor 1 is:");
+    float mvPerAmp = 50.0/75.0;   //50A shunt, 75mv full range
     
-    // The below method sets the mux and gets a reading.
-    int sensorOneCounts=adc0.getConversionP0GND();  // counts up to 16-bits  
-    Serial.println(sensorOneCounts);
+    float readingMv=adc0.getConversionP0N1()*adc0.getMvPerCount();
 
-    // To turn the counts into a voltage, we can use
-    Serial.print("Voltage for sensor 1 is:");
-    Serial.println(sensorOneCounts*adc0.getMvPerCount());
-    
+    Serial.print(readingMv);
+    Serial.print("Mv, ");
+    Serial.print(readingMv * mvPerAmp);
+    Serial.print(" Amps");
+
+   
     Serial.println();
      
-    delay(500);
+    delay(1000);
 }
