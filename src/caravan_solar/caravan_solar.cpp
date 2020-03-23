@@ -1,37 +1,12 @@
-// I2C device class (I2Cdev) demonstration Arduino sketch for ADS1115 class
-// Example of reading two differential inputs of the ADS1115 and showing the value in mV
-// 06 May 2013 by Frederick Farzanegan (frederick1@farzanegan.org)
-// Updates should (hopefully) always be available at https://github.com/jrowberg/i2cdevlib
-//
-// Changelog:
-//     2013-05-13 - initial release
-
-/* ============================================
-I2Cdev device library code is placed under the MIT license
-Copyright (c) 2011 Jeff Rowberg
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-===============================================
-*/
+#include <Arduino.h>
+#include <Wire.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #include "ADS1115.h"
 
 ADS1115 adc0(ADS1115_ADDRESS_ADDR_VDD); 
+
+void writeToThingSpeak(float value);
 
 void setup() {                
     Wire.begin(PIN_WIRE_SDA, PIN_WIRE_SCL);  // join I2C bus
@@ -59,7 +34,7 @@ void loop() {
     int loopCount = 1;
     float averageAmps = readingAmps;
 
-    while (loopCount < (10*60))  //Take an average for 10 minutes
+    while (loopCount < (5*60))  //Take an average for 5 minutes
     {
         readingAmps=adc0.getConversionP0N1()*adc0.getMvPerCount()*mvPerAmp;
 
@@ -78,13 +53,12 @@ void loop() {
         loopCount++;
     }
 
-    Serial.println("***************** Upload 10 min average ********************");
-
+    Serial.println("***************** Upload 5 min average ********************");
     writeToThingSpeak(averageAmps);
 
 }
 
-void writeToThingSpeak(averageAmps)
+void writeToThingSpeak(float value)
 {
     //yes, I know my wifi password is in git. 
     //yes, if you know where I live and want to use my WiFi you can
