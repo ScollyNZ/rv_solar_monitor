@@ -51,26 +51,44 @@ void setup() {
 }
 
 void loop() {
-    // Set the gain (PGA) +/- 256mv
+    // voltage divider is 1k/6.7k
+    // so 26v should be (26/7.7*1) and (26/7.7*2.7)
+    //  3.37 and 22.6 = 26 - math is good
+    adc0.setGain(ADS1115_PGA_4P096);
+    float readingVolts=adc0.getConversionP0GND()*adc0.getMvPerCount();
+
     adc0.setGain(ADS1115_PGA_0P256);
-    float mvPerAmp = 50.0/75.0;   //50A shunt, 75mv full range
-    float readingAmps=adc0.getConversionP0N1()*adc0.getMvPerCount()*mvPerAmp;
+    float readingBatteryAmps=adc0.getConversionP1GND()*adc0.getMvPerCount();
 
     int loopCount = 1;
-    float averageAmps = readingAmps;
+    float averageVolts = readingVolts;
+    float averageBatteryAmps = readingBatteryAmps;
 
     while (loopCount < (10*60))  //Take an average for 10 minutes
     {
-        readingAmps=adc0.getConversionP0N1()*adc0.getMvPerCount()*mvPerAmp;
+        adc0.setGain(ADS1115_PGA_4P096);
+        float readingVolts=adc0.getConversionP0GND()*adc0.getMvPerCount();
+
+        adc0.setGain(ADS1115_PGA_0P256);
+        float readingBatteryAmps=adc0.getConversionP1GND()*adc0.getMvPerCount();
 
         //Approximate rolling average
-        averageAmps -= averageAmps / loopCount;
-        averageAmps += readingAmps / loopCount;
+        averageVolts -= averageVolts / loopCount;
+        averageVolts += readingVolts / loopCount;
 
-        Serial.print("Current: ");
-        Serial.print(readingAmps);
+        //Approximate rolling average
+        averageBatteryAmps -= averageBatteryAmps / loopCount;
+        averageBatteryAmps += readingBatteryAmps / loopCount;
+
+
+        Serial.print("Voltage: ");
+        Serial.print(readingVolts);
         Serial.print(" Average:");
-        Serial.print(averageAmps);
+        Serial.print(averageVolts);
+        Serial.print("Battery I: ");
+        Serial.print(readingBatteryAmps);
+        Serial.print(" Average:");
+        Serial.print(averageBatteryAmps);
         Serial.print(" Sample #:");
         Serial.println(loopCount);
 
@@ -80,11 +98,12 @@ void loop() {
 
     Serial.println("***************** Upload 10 min average ********************");
 
-    writeToThingSpeak(averageAmps);
+    //writeToThingSpeak(averageVolts);
 
 }
 
-void writeToThingSpeak(averageAmps)
+/*
+void writeToThingSpeak(averageVolts)
 {
     //yes, I know my wifi password is in git. 
     //yes, if you know where I live and want to use my WiFi you can
@@ -117,3 +136,4 @@ void writeToThingSpeak(averageAmps)
     Serial.print("WiFi disconnected");
 
 }
+*/
